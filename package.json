@@ -5,10 +5,15 @@
   "description": "Converts between px, rem, and Tailwind spacing units.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint ."
   },
+  "pre-commit": [
+    "lint"
+  ],
   "license": "ISC",
   "dependencies": {
-    "eslint": "^7.27.0"
+    "eslint": "^7.27.0",
+    "pre-commit": "^1.2.2"
   }
 }

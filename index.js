@@ -3,6 +3,7 @@ const input = process.argv[2];
 if (!input) throw new Error('Error: valid input needed. See "tailwind-convert --help" for more details.');
 
 if (input === '--help') {
+  //eslint-disable-next-line no-console
   console.info(`
   Converts between px, rem, and Tailwind spacing units on the Tailwind spacing scale.
   For full docs on the Tailwind spacing scale, see https://tailwindcss.com/docs/customizing-spacing.
@@ -16,14 +17,45 @@ if (input === '--help') {
   * a unitless value: the program will interpret it as a Tailwind spacing unit and show the other two equivalent values.
 
   Examples:
-  - "tailwind-convert 24px" => 1.5rem, Tailwind value = 6.
-  - "tailwind-convert 3rem" => 48px, Tailwind value = 12.
-  - "tailwind-convert 4" => 1rem, 16px.
+  - "tailwind-convert 24px" => "24px, 1.5rem, Tailwind value = 6."
+  - "tailwind-convert 3rem" => "48px, 3rem, Tailwind value = 12."
+  - "tailwind-convert 4" => "16px, 1rem, Tailwind value = 4."
   `);
   process.exit(0);
 }
 
-//  const convert = val => Math.round((parseFloat(val) / 16) * 4);
+// order to display: px, rem, Tailwind value.
+const parsedInput = parseFloat(input.replace(/\D/g, ''));
 
- // eslint-disable-next-line no-console
-//  console.log(convert(process.argv[2]));
+let px = 0;
+let rem = 0;
+let tw = 0;
+
+switch (true) {
+  case /px$/.test(input):
+    px = parsedInput;
+    rem = parsedInput / 16;
+    tw = Math.round((parsedInput / 16) * 4)
+    break;
+  case /rem$/.test(input):
+    px = parsedInput * 16;
+    rem = parsedInput;
+    tw = parsedInput * 4;
+    break;
+  case /^\d{1,2}$/.test(input):
+    px = parsedInput * 4;
+    rem = parsedInput / 4;
+    tw = parsedInput;
+    break;
+  default:
+    throw new Error('Must enter in a valid value. Please enter a numerical value followed by px or rem or a one-to-two digit unitless value for Tailwind value.');
+}
+
+// TODO: compare TW vals agaisnt dictionary.fail if no match.
+ //eslint-disable-next-line no-console
+console.info(`
+
+Your result:
+${px}px, ${rem}rem, Tailwind value = ${tw}.
+
+`);
