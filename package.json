@@ -5,7 +5,7 @@
   "description": "Converts between px, rem, and Tailwind spacing units.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "license": "ISC",
   "dependencies": {
