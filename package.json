@@ -1,0 +1,14 @@
+{
+  "name": "tailwind-convert",
+  "version": "1.0.0",
+  "author": "",
+  "description": "Converts between px, rem, and Tailwind spacing units.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^7.27.0"
+  }
+}
